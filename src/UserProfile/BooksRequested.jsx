@@ -14,12 +14,22 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     padding: theme.spacing(2),
-    margin: 'auto',
     maxWidth: 500,
-    
+    padding: 16,
+    margin: '10px auto',
+    background: 'whitesmoke'
+
   },
   button1: {
 marginleft: 10,
+color: 'white',
+background: '#76b646',
+borderBottom: '2px solid #438e0a'
+  },
+  button2:{
+    backgroundColor: '#b9b5b5',
+    marginLeft: 3,
+    borderBottom: '1px solid #6f6f6f'
   }
 }));
 

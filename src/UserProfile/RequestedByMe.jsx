@@ -17,13 +17,16 @@ const useStyles = makeStyles((theme) => ({
 	paper: {
 		// background: 'rgb(0, 179, 0)',
 		padding: theme.spacing(2),
+		background: 'whitesmoke',
+		margin: 'auto',
+		padding: 16,
 		textAlign: 'center',
-		color: theme.palette.text.secondary,
-		width: 250,
-		margin: 'auto'
+		height: 415
+	
 	},
 	imgBook: {
-		height: 55,
+		height: 250,
+		width: '100%',
 		marginBottom: 10,
 		maxWidth: '100%'
 	},
@@ -85,8 +88,10 @@ export default function RequestedByMe() {
 										href={`/university/${book.universityId}/book/${book._id}`}
 										style={{ color: 'white' }}
 									>
-										<Button
-											style={{ color: 'Black', border: '1px solid white' }}
+										</Link>
+										<div style={{overflow: 'auto', textAlign: 'left'}}>
+										<p
+											style={{ color: 'Black'}}
 											variant="outlined"
 										>
 											{book.isAccepted ? (
@@ -103,20 +108,20 @@ export default function RequestedByMe() {
 												</div>
 											)}
 											
-										</Button>
-										<Button
-											style={{ color: 'Black', border: '1px solid white' }}
+										</p>
+										<p
+											style={{color: 'Black'}}
 											variant="outlined"
 										>
 											Owner: {book.ownerName}
-										</Button>
-										<Button
-											style={{ color: 'Black', border: '1px solid white' }}
+										</p>
+										<p
+											style={{ color: 'Black'}}
 											variant="outlined"
 										>
 											Owner Email: {book.ownerEmail}
-										</Button>
-									</Link>
+										</p>
+										</div>
 								</Paper>
 							</Grid>
 						))}

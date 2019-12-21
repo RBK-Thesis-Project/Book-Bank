@@ -39,22 +39,24 @@ export const Footer = () => {
       <div className={classes.root}>
         <Container>
           <Grid container justify="center" alignItems="center" spacing={3}>
-            <Grid item xs>
-              <img alt="img" src="https://ca.slack-edge.com/TM2QVR1GU-UMA80TBPT-b7bd933b562d-512" className={classes.imgAva} />
-              <p>Nazeh M.Taha</p>
+          <Grid item xs>
+              <img alt="img" src="https://ca.slack-edge.com/TM2QVR1GU-UMH122R7Z-0b186193ccd6-512" className={classes.imgAva} />
+              <p>Tasnim Zakarneh</p>
             </Grid>
+            
             <Grid item xs>
               <img alt="img" src="https://i.ibb.co/MfmVMTX/Screen-Shot-2019-12-20-at-10-41-48-PM.png" className={classes.imgAva} />
               <p>Nour Saqqa</p>
             </Grid>
             <Grid item xs>
+              <img alt="img" src="https://ca.slack-edge.com/TM2QVR1GU-UMA80TBPT-b7bd933b562d-512" className={classes.imgAva} />
+              <p>Nazeh M.Taha</p>
+            </Grid>
+            <Grid item xs>
               <img alt="img" src="https://ca.slack-edge.com/TM2QVR1GU-UMELWK15J-420bcea92d48-512" className={classes.imgAva} />
               <p>Alaa Al Agha</p>
             </Grid>
-            <Grid item xs>
-              <img alt="img" src="https://ca.slack-edge.com/TM2QVR1GU-UMH122R7Z-0b186193ccd6-512" className={classes.imgAva} />
-              <p>Tasnim Zakarneh</p>
-            </Grid>
+            
             <Grid item xs>
               <img alt="img" src="https://ca.slack-edge.com/TM2QVR1GU-UMF5C2H7X-4ec876416ea9-512" className={classes.imgAva} />
               <p>Yasmeen Othman</p>

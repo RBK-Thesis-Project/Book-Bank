@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 			margin: 'auto',
 			padding: 16,
 			textAlign: 'center',
-			height: 300
+			height: 320
         },
         imgBook: {
 			height: 250,
