@@ -10,7 +10,7 @@ var router = express.Router();
 const bookBankDB = require('../../database/db.js');
 
 //------------------Serving the Homepage ------------------
-router.route('/getData').get(function (req, res) {
+router.route('/getData').get(function(req, res) {
 	console.log('serving the Root rout');
 	// console.log(req.body);
 	var homePageData = {
@@ -23,46 +23,45 @@ router.route('/getData').get(function (req, res) {
 	};
 
 	// --------- Find 4 random universities ---------
-	bookBankDB.findRandomUnis(function (err, randomUnis) {
+	bookBankDB.findRandomUnis(function(err, randomUnis) {
 		if (err) throw err;
 		// console.log(randomUnis);
 		homePageData.universities = randomUnis;
 		//--------- Find  recently added Books ---------
-		bookBankDB.findRecentlyAddedBooks(function (err, books) {
+		bookBankDB.findRecentlyAddedBooks(function(err, books) {
 			if (err) throw err;
 			//console.log(books);
 			homePageData.recentBooks = books;
 			//--------- Find Number of Donated Books ---------
-			bookBankDB.countDonatedBooks(function (err, numberOfDonatedBooks) {
+			bookBankDB.countDonatedBooks(function(err, numberOfDonatedBooks) {
 				if (err) {
 					throw err;
 				}
 				//console.log(numberOfDonatedBooks);
 				homePageData.totalDonatedBooks = numberOfDonatedBooks;
 				//--------- Find Number of Universities ---------
-				bookBankDB.countUniversities(function (err, numberOfUnis) {
+				bookBankDB.countUniversities(function(err, numberOfUnis) {
 					if (err) {
 						throw err;
 					}
 					//console.log(numberOfUnis);
 					homePageData.totalUniversities = numberOfUnis;
 					//--------- Find Number of Users ---------
-					bookBankDB.countUsers(function (err, numberOfUsers) {
+					bookBankDB.countUsers(function(err, numberOfUsers) {
 						if (err) {
 							throw err;
 						}
 						// console.log(numberOfUsers);
 						homePageData.totalUsers = numberOfUsers;
 						//now homePageData have all the data from the database.
-						bookBankDB.getAllBooks(function (err, allBooks) {
+						bookBankDB.getAllBooks(function(err, allBooks) {
 							if (err) {
 								throw err;
 							}
 							homePageData.allBooks = allBooks;
 
 							res.json(homePageData);
-
-						})
+						});
 					});
 				});
 			});
@@ -71,17 +70,17 @@ router.route('/getData').get(function (req, res) {
 });
 
 //------------------Get All Books (BluePrint books) ------------------
-router.route('/allBooks').get(function (req, res) {
+router.route('/allBooks').get(function(req, res) {
 	var allBooksObj = {
 		allBluePrintBooks: [],
 		universities: []
 	};
-	bookBankDB.getAllBooks(function (err, allBooks) {
+	bookBankDB.getAllBooks(function(err, allBooks) {
 		if (err) throw err;
 
 		allBooksObj.allBluePrintBooks = allBooks;
 
-		bookBankDB.getAllUniversities(function (err, univs) {
+		bookBankDB.getAllUniversities(function(err, univs) {
 			if (err) throw err;
 			// console.log(univs);
 			allBooksObj.universities = univs;
@@ -131,37 +130,39 @@ router.route('/signup').post((req, res) => {
 				universityId: '',
 				userAvatar: 'http://www.hts.jo/hts/assets/images/avatars/avatar1_big@2x.png'
 			};
-			bookBankDB.saveProfile(newProfile, function (err, profileDoc) {
+			bookBankDB.saveProfile(newProfile, function(err, profileDoc) {
 				if (err) throw err;
 				console.log(profileDoc);
-			});
-			bcrypt.hash(body.password, 10, (err, hash) => {
-				if (err) throw err;
-				user.password = hash;
-				console.log(hash);
-				user
-					.save()
-					.then((user) => {
-						const payload = {
-							userId: user._id,
-							userName: user.userName,
-							email: user.email
-						};
-						let token = jwt.sign(
-							payload,
-							process.env.SECRET_KEY,
-							{
-								expiresIn: '24h'
-							},
-							(err, token) => {
-								if (err) res.json({ success: false, token: token, user: user });
-								res.json({ success: true, token: token, user: user });
-							}
-						);
-					})
-					.catch((err) => {
-						res.send('error' + err);
-					});
+
+				bcrypt.hash(body.password, 10, (err, hash) => {
+					if (err) throw err;
+					user.password = hash;
+					console.log(hash);
+					user
+						.save()
+						.then((user) => {
+							const payload = {
+								userId: user._id,
+								userName: user.userName,
+								email: user.email,
+								userAvatar: profileDoc.userAvatar
+							};
+							let token = jwt.sign(
+								payload,
+								process.env.SECRET_KEY,
+								{
+									expiresIn: '24h'
+								},
+								(err, token) => {
+									if (err) res.json({ success: false, token: token, user: user });
+									res.json({ success: true, token: token, user: user });
+								}
+							);
+						})
+						.catch((err) => {
+							res.send('error' + err);
+						});
+				});
 			});
 		});
 	sendMail(req.body.email);
@@ -184,18 +185,24 @@ router.route('/login').post((req, res) => {
 		.then((user) => {
 			if (user) {
 				if (bcrypt.compareSync(req.body.password, user.password)) {
-					const payload = {
-						userId: user._id,
-						userName: user.userName,
-						email: user.email,
-						password: user.password
-					};
+					bookBankDB.findProfile(user._id, function(err, loggedInProfile) {
+						if (err) throw err;
+						console.log(loggedInProfile);
+						const payload = {
+							userId: user._id,
+							userName: user.userName,
+							email: user.email,
+							password: user.password,
+							userAvatar: loggedInProfile.userAvatar
+						};
 
-					let token = jwt.sign(payload, process.env.SECRET_KEY, {
-						expiresIn: '24h'
+						let token = jwt.sign(payload, process.env.SECRET_KEY, {
+							expiresIn: '24h'
+						});
+						// console.log(token);
+						sendMail(req.body.email);
+						res.json({ success: true, message: 'Authentication successful!', token: token, user: user });
 					});
-					// console.log(token);
-					res.json({ success: true, message: 'Authentication successful!', token: token, user: user });
 				} else {
 					res.json({ success: false, error: 'check your password' });
 				}
@@ -206,11 +213,12 @@ router.route('/login').post((req, res) => {
 		.catch((err) => {
 			res.send('error: ' + err);
 		});
-	// sendMail(req.body.email);
+
 	// console.log(req.body.email)
 });
+//-----
 
-
+//----
 
 //---- Populate data to data Base:
 
