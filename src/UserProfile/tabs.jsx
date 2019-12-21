@@ -9,9 +9,10 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
+import Link from '@material-ui/core/Link';
 //components import
 import BooksRequested from './BooksRequested.jsx';
-// import RequestedByMe from './RequestedByMe'
+import RequestedByMe from './RequestedByMe';
 // import Notifications from '.././Notify/Notification.js'
 import BooksDonated from './BooksDonated.jsx';
 import jwt_decode from 'jwt-decode';
@@ -48,8 +49,7 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		backgroundColor: theme.palette.background.paper,
-		width: 900
+		backgroundColor: theme.palette.background.paper
 	}
 }));
 
@@ -97,12 +97,14 @@ export default function FullWidthTabs() {
 					<TabPanel value={value} index={0} dir={theme.direction}>
 						<BooksDonated />
 					</TabPanel>
-					<TabPanel value={value} index={1} dir={theme.direction}>
-						<BooksRequested />
+					<Link href={`http://localhost:8000/profile/${id}/requestedBooks`}>
+						<TabPanel value={value} index={1} dir={theme.direction}>
+							<BooksRequested />
+						</TabPanel>
+					</Link>
+					<TabPanel value={value} index={2} dir={theme.direction}>
+						<RequestedByMe />
 					</TabPanel>
-					{/* <TabPanel value={value} index={2} dir={theme.direction}>
-            <RequestedByMe /> 
-        </TabPanel> */}
 				</SwipeableViews>
 			</div>
 		</Container>

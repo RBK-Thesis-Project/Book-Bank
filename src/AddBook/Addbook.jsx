@@ -175,11 +175,12 @@ export default function AddBook() {
 			})
 			.then((response) => {
 				console.log(response.data);
+				alert("You added New Book");
 			})
 			.catch((error) => {
 				console.log(error);
 			});
-		alert("You added New Book")
+	
 		console.log('All information of Book from front-end side: ', InfoBook);
 	};
 

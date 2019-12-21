@@ -75,7 +75,14 @@ const useStyles = makeStyles((theme) => ({
 	inputRoot: {
 		width: 490,
 		color: 'inherit'
-	},
+  },
+  addName: {
+    color: 'white',
+    width: '100%',
+    background: '#76b646',
+    marginTop: 12,
+    borderBottom: '2px solid #438e0a'
+  },
 	formStyle: {
 		margin: 'auto',
 		width: '40%',
@@ -120,13 +127,18 @@ const useStyles = makeStyles((theme) => ({
 	},
 	searchItem: {
 		padding: 10
+  },
+  formStyle: {
+		margin: 'auto',
+		width: '40%',
+		marginTop: 40
 	},
 	searchLink: {
 		cursor: 'pointer',
 		color: 'gray'
 	},
-	searchImg: {
-		borderRight: '4px solid #77b748'
+	selectBook: {
+		backgroundColor: 'rgb(203, 231, 255)'
 	},
 	h2: {
 		textAlign: 'center',
@@ -152,7 +164,15 @@ const useStyles = makeStyles((theme) => ({
 		width: 493,
 		marginLeft: -10,
 		marginBottom: 5
-	},
+  },
+  h3:{
+    color: 'gray',
+    fontSize: 40,
+    marginTop: 80,
+    marginBottom: 50,
+    textAlign: 'center',
+    marginBottom: 50
+  },
 	inputInput: {
 		padding: theme.spacing(1, 1, 1, 7),
 		transition: theme.transitions.create('width'),
@@ -290,12 +310,12 @@ export const FirstAddBook = (props) => {
 			<NavBar />
 			<br />
 			<Container>
-				<h2>Add New Book</h2>
-				<Link href={`/profile/${userIdFromToken}/addBlueprintDonatedBook`} style={{ color: 'black' }}>
-					<Button style={{ marginBottom: 5 }} variant="contained" color="primary">
+      <div className={classes.formStyle}>
+				<h2 className={classes.h2}>Add New Book</h2>
+				<Link href={`/profile/${userIdFromToken}/addBlueprintDonatedBook`} style={{ color: 'black' }} >
+					<Button style={{ marginBottom: 5 }} variant="contained" color="primary" className={classes.addName}>
 						Add New Book
 					</Button>
-					{/* <h3 style={{ marginBottom: 5 }}>{item.bookName}</h3> */}
 				</Link>
 
 				<br />
@@ -312,7 +332,8 @@ export const FirstAddBook = (props) => {
 								labelId="demo-simple-select-filled-label"
 								id="demo-simple-select-filled"
 								value={choosenUniv}
-								onChange={onUniChange}
+                onChange={onUniChange}
+                className={classes.selectBook}
 							>
 								{allUnivs.map((univ) => (
 									<MenuItem key={univ._id} value={univ.universityName}>
@@ -422,6 +443,7 @@ export const FirstAddBook = (props) => {
 						</div>
 					</div>
 				</form>
+        </div>
 			</Container>
 		</div>
 	);

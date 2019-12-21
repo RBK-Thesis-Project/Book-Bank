@@ -16,13 +16,15 @@ const useStyles = makeStyles(theme => ({
         paper: {
             // background: 'rgb(0, 179, 0)',
             padding: theme.spacing(2),
-            textAlign: 'center',
-            color: theme.palette.text.secondary,
-            width: 250,
-            margin: 'auto'
+			background: 'whitesmoke',
+			margin: 'auto',
+			padding: 16,
+			textAlign: 'center',
+			height: 320
         },
         imgBook: {
-            height: 250,
+			height: 250,
+			width: '100%',
             marginBottom: 10,
             maxWidth: '100%'
         },
@@ -68,7 +70,7 @@ export const BooksDonated  = () => {
 	return (
 		<div>
 			<Container>
-				<Grid container direction="row" justify="center" alignItems="center" spacing={3}>
+				<Grid container direction="row" spacing={3}>
 					{books.map((book) => (
 						<Grid item xs={12} sm={6} md={3} lg={3} xl={3} key={books._id}>
 							<Paper className={classes.paper}>
@@ -83,9 +85,7 @@ export const BooksDonated  = () => {
 									href={`/university/${book.universityId}/book/${book._id}`}
 									style={{ color: 'white' }}
 								>
-									<Button style={{ color: 'Black', border: '1px solid white' }} variant="outlined">
-										View More
-									</Button>
+
 								</Link>
 							</Paper>
 						</Grid>

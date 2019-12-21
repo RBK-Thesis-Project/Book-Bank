@@ -56,8 +56,11 @@ class SignIn extends React.Component {
 									placeholder="password"
 									style={{ width: 250, height: 30 }}
 								/>
+
 							</div>
+
 							<br />
+
 							<div>
 								<button
 									type="submit"

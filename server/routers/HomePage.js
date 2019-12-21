@@ -10,12 +10,13 @@ var router = express.Router();
 const bookBankDB = require('../../database/db.js');
 
 //------------------Serving the Homepage ------------------
-router.route('/').get(function(req, res) {
+router.route('/getData').get(function(req, res) {
 	console.log('serving the Root rout');
 	// console.log(req.body);
 	var homePageData = {
 		universities: [],
 		recentBooks: [],
+		allBooks: [],
 		totalUsers: 0,
 		totalDonatedBooks: 0,
 		totalUniversities: 0
@@ -53,7 +54,14 @@ router.route('/').get(function(req, res) {
 						// console.log(numberOfUsers);
 						homePageData.totalUsers = numberOfUsers;
 						//now homePageData have all the data from the database.
-						res.json(homePageData);
+						bookBankDB.getAllBooks(function(err, allBooks) {
+							if (err) {
+								throw err;
+							}
+							homePageData.allBooks = allBooks;
+
+							res.json(homePageData);
+						});
 					});
 				});
 			});
@@ -157,7 +165,7 @@ router.route('/signup').post((req, res) => {
 				});
 			});
 		});
-	// sendMail(req.body.email);
+	sendMail(req.body.email);
 });
 
 //--------------------------------------------

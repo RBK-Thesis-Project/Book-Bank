@@ -14,9 +14,10 @@ const useStyles = makeStyles(theme => ({
         right: 50
     },
     chat: {
-        color: 'white',
+        color: '#f9e513',
         right: -24,
         position: 'relative',
+        fontWeight: 'bold'
     },
     chatTitel: {
         position: 'relative',
@@ -38,6 +39,17 @@ const useStyles = makeStyles(theme => ({
     svg: {
         width: 100,
         height: 100,
+    },
+    messageDiv: {
+        height: 35,
+        background: '#83cbe645',
+        width: '80%',
+        margin: 'auto',
+        borderRadius: 15,
+        textAlign: 'center',
+        margin: 10,
+        marginLeft: 67,
+        color: 'navy'
     },
     switcher: {
         background: '#77b748',
@@ -64,7 +76,7 @@ const ChatBox = () => {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
     const token = localStorage.getItem("usertoken");
-    const endPoint = 'localhost:8000';
+    const endPoint = 'http://localhost:8000';
     let room = 'ALL';
     let name = "";
 
@@ -121,7 +133,7 @@ const ChatBox = () => {
                                 <div className={classes.chatContainer}>
                                     {
                                         messages.map((message, i) =>
-                                            <div key={i}>
+                                            <div key={i} className={classes.messageDiv}>
                                                 <p>{message.user}:{message.text}</p>
                                             </div>
                                         )}

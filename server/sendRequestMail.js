@@ -12,7 +12,7 @@ module.exports = function sendEmail(userEmail) {
     });
 
     const message = {
-        from: 'bookbank.rbk@gmail.com',
+        from: 'bookbank.cohort7@gmail.com',
         to: userEmail,
         subject: 'Welcome to Book Bank',
         // text: `test email!`,

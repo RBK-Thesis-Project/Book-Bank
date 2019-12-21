@@ -17,13 +17,16 @@ const useStyles = makeStyles((theme) => ({
 	paper: {
 		// background: 'rgb(0, 179, 0)',
 		padding: theme.spacing(2),
+		background: 'whitesmoke',
+		margin: 'auto',
+		padding: 16,
 		textAlign: 'center',
-		color: theme.palette.text.secondary,
-		width: 250,
-		margin: 'auto'
+		height: 415
+	
 	},
 	imgBook: {
-		height: 55,
+		height: 250,
+		width: '100%',
 		marginBottom: 10,
 		maxWidth: '100%'
 	},
@@ -59,7 +62,7 @@ export default function RequestedByMe() {
 			.get(`http://localhost:8000/profile/${id}/booksRequestedByTheUser`)
 			.then((res) => {
 				setData(res.data);
-				console.log(res.data);
+				console.log("Books requests : ",res.data);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -69,7 +72,6 @@ export default function RequestedByMe() {
 	// var status = function ()
 	return (
 		<div>
-			{data.isAccepted ? (
 				<Container>
 					<Grid container direction="row" justify="center" alignItems="center" spacing={3}>
 						{data.map((book) => (
@@ -86,60 +88,45 @@ export default function RequestedByMe() {
 										href={`/university/${book.universityId}/book/${book._id}`}
 										style={{ color: 'white' }}
 									>
-										<Button
-											style={{ color: 'Black', border: '1px solid white' }}
+										</Link>
+										<div style={{overflow: 'auto', textAlign: 'left'}}>
+										<p
+											style={{ color: 'Black'}}
 											variant="outlined"
 										>
-											Status: Accepted
-										</Button>
-										<Button
-											style={{ color: 'Black', border: '1px solid white' }}
+											{book.isAccepted ? (
+												<div>
+														Status: Accepted
+												</div>
+											): book.isIgnored ?(
+												<div>
+												Status: Ignored
+												</div>
+											):(
+												<div>
+												Status: Pending
+												</div>
+											)}
+											
+										</p>
+										<p
+											style={{color: 'Black'}}
 											variant="outlined"
 										>
-											Owner: {data.ownerName}
-										</Button>
-									</Link>
+											Owner: {book.ownerName}
+										</p>
+										<p
+											style={{ color: 'Black'}}
+											variant="outlined"
+										>
+											Owner Email: {book.ownerEmail}
+										</p>
+										</div>
 								</Paper>
 							</Grid>
 						))}
 					</Grid>
 				</Container>
-			) : (
-				<Container>
-					<Grid container direction="row" justify="center" alignItems="center" spacing={3}>
-						{data.map((book) => (
-							<Grid item xs={12} sm={6} md={3} lg={3} xl={3} key={book._id}>
-								<Paper className={classes.paper}>
-									<img alt="img" src={book.bookCover} className={classes.imgBook} />
-									<Link
-										href={`/university/${book.universityId}/book/${book._id}`}
-										style={{ color: 'black' }}
-									>
-										<h3 style={{ marginBottom: 5 }}>{book.bookName}</h3>
-									</Link>
-									<Link
-										href={`/university/${book.universityId}/book/${book._id}`}
-										style={{ color: 'white' }}
-									>
-										<Button
-											style={{ color: 'Black', border: '1px solid white' }}
-											variant="outlined"
-										>
-											Status: Pending
-										</Button>
-										<Button
-											style={{ color: 'Black', border: '1px solid white' }}
-											variant="outlined"
-										>
-											Owner: {data.ownerName}
-										</Button>
-									</Link>
-								</Paper>
-							</Grid>
-						))}
-					</Grid>
-				</Container>
-			)}
 		</div>
 	);
 }

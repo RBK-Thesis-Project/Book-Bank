@@ -95,7 +95,7 @@ export const SearchAppBar = (posts) => {
 
   let allBooks = []
   posts.posts.data ?
-      allBooks = posts.posts.data.recentBooks
+      allBooks = posts.posts.data.allBooks
   : allBooks = [];
 
   // console.log(allBooks)

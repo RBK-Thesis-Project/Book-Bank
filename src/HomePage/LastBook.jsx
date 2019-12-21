@@ -19,12 +19,16 @@ const useStyles = makeStyles((theme) =>
 			padding: theme.spacing(2),
 			textAlign: 'center',
 			color: theme.palette.text.secondary,
-			height: 500
+			height: 470,
+			borderRadius: 15,
+			boxShadow: 'rgba(0, 0, 0, 0.2) 4px 5px 9px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px'
+
 		},
 		imgBook: {
 			height: 385,
 			marginBottom: 10,
-			maxWidth: '100%'
+			maxWidth: '100%',
+			borderRadius: 15
 		},
 		h2: {
 			color: 'gray',
@@ -51,13 +55,13 @@ export const LastBook = (posts) => {
 									href={`/university/${book.universityId}/book/${book._id}`}
 									style={{ color: 'white' }}
 								>
-									<h3 style={{ marginBottom: 5 }}>{book.bookName}</h3>
+									<h3 style={{ marginBottom: 5, marginTop: 25 }}>{book.bookName}</h3>
 								</Link>
 								<Link
 									href={`/university/${book.universityId}/book/${book._id}`}
 									style={{ color: 'white' }}
 								>
-									<p style={{ marginBottom: 5 }}>university name</p>
+									{/* <p style={{ marginBottom: 5 }}>university name</p> */}
 								</Link>
 								{/* <Link href={`/university/${book.universityId}/book/${book.id}`} style={{ color: 'white' }}>
                                     <Button style={{ color: 'white', border: '1px solid white' }} variant="outlined">Default</Button>
