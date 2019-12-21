@@ -22,6 +22,8 @@ router.route('/getData').get(function(req, res) {
 		totalUniversities: 0
 	};
 
+
+
 	// --------- Find 4 random universities ---------
 	bookBankDB.findRandomUnis(function(err, randomUnis) {
 		if (err) throw err;
@@ -54,7 +56,7 @@ router.route('/getData').get(function(req, res) {
 						// console.log(numberOfUsers);
 						homePageData.totalUsers = numberOfUsers;
 						//now homePageData have all the data from the database.
-						bookBankDB.getAllBooks(function(err, allBooks) {
+						bookBankDB.getAllBooks(function(err, allBooks){
 							if (err) {
 								throw err;
 							}
@@ -165,7 +167,7 @@ router.route('/signup').post((req, res) => {
 				});
 			});
 		});
-	sendMail(req.body.email);
+	// sendMail(req.body.email);
 });
 
 //--------------------------------------------
