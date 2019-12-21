@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-module.exports = function sendEmail(userEmail, requesterName, bookName) {
+module.exports = function sendEmail(requesterEmail, requesterName, bookName) {
     // create reusable transporter object using the default SMTP transport
     let transport = nodemailer.createTransport({
         host: 'smtp.gmail.com',
@@ -13,11 +13,10 @@ module.exports = function sendEmail(userEmail, requesterName, bookName) {
 
     const message = {
         from: 'bookbank.cohort7@gmail.com',
-        to: userEmail, //requester email
+        to: requesterEmail, //requester email
         subject: 'Welcome to Book Bank',
         // text: `test email!`,
         html: `<h1 style ="font-family:Helvetica; color:black;"> Weclome to Book bank website! </h1>
-    
         <h3 style ="font-family:Helvetica; color:black;"> 
         Dear ${requesterName},
         Your request for ${bookName} has been accepted. </h3>

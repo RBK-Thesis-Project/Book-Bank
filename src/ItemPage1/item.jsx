@@ -92,6 +92,7 @@ export default function Item() {
 
 		axios
 			.get(`http://localhost:8000/university/${univId}/book/${bookId}`)
+
 			.then((res) => {
 				setBook(res.data.bluePrintBook);
 				setUnivName(res.data.universityNameOfBook.universityName);

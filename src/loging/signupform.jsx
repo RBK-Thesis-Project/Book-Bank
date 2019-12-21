@@ -26,7 +26,7 @@ class SignUp extends React.Component {
         window.location.href = "http://localhost:3000/";
       },
       error: function (err) {
-        alert("invalid email or password,Plz make sure to fill all the fields");
+        alert("invalid email or password,Plz make sure you filled all the fields");
       }
     });
   }
@@ -95,6 +95,7 @@ class SignUp extends React.Component {
                 style={{ width: 250, height: 30 }}
               />
             </div>
+            <span style={{ fontSize: 8 }}>Password with minimum length of 8</span>
             <br />
             <div>
               <button

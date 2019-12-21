@@ -7,7 +7,7 @@ mongoose.set('useUnifiedTopology', true);
 const URI = 'mongodb+srv://bookbank:bookbank@book-bank-3ough.mongodb.net/test?retryWrites=true&w=majority';
 
 //-------------------Connection Setup-------------------------
-mongoose.connect(URI, function(err, db) {
+mongoose.connect(URI, function (err, db) {
 	if (err) {
 		console.log('Unable to connect to the server. Please start the server. Error:', err);
 	} else {
@@ -17,7 +17,7 @@ mongoose.connect(URI, function(err, db) {
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
+db.once('open', function () {
 	// we're connected!
 	console.log("We're Connected: TAZ");
 });
@@ -36,7 +36,7 @@ var booksSchema = mongoose.Schema({
 //-------------------Book Model-------------------------
 let Book = mongoose.model('books', booksSchema);
 
-var saveBook = function(book, callBack) {
+var saveBook = function (book, callBack) {
 	// console.log('in save function');
 	var newBook = new Book({
 		bookName: book.bookName,
@@ -62,7 +62,7 @@ var donatedBooksSchema = mongoose.Schema({
 //-------------------Donated Book Model-------------------------
 let DonatedBook = mongoose.model('donated-books', donatedBooksSchema);
 
-var saveDonatedBook = function(donatedBook, callBack) {
+var saveDonatedBook = function (donatedBook, callBack) {
 	console.log('in save function');
 	var newDonatedBook = new DonatedBook({
 		userId: donatedBook.userId,
@@ -112,7 +112,7 @@ var saveDonatedBook = function(donatedBook, callBack) {
 var requestedBooksSchema = mongoose.Schema({
 	requesterId: { type: String },
 	requesterName: { type: String }, //new
-	requesterEmail: {type: String},
+	requesterEmail: { type: String },
 	ownerId: { type: String },
 	ownerName: { type: String }, //new
 	bookId: { type: String },
@@ -127,7 +127,7 @@ var requestedBooksSchema = mongoose.Schema({
 });
 //-------------------Requested Book EDITED Model-------------------------
 let RequestedBook = mongoose.model('requestedBooks', requestedBooksSchema);
-var saveRequestedBook = function(requestedBook, callBack) {
+var saveRequestedBook = function (requestedBook, callBack) {
 	// console.log('in save function');
 	var newRequestedBook = new RequestedBook({
 		requesterId: requestedBook.requesterId,
@@ -162,14 +162,14 @@ var userSchema = mongoose.Schema({
 //-------------------User Model-------------------------
 var User = mongoose.model('user', userSchema);
 
-var saveUser = function(user) {
+var saveUser = function (user) {
 	var newUser = new User({
 		userName: user.userName,
 		email: user.email,
 		password: user.password
 	});
 
-	newUser.save(function(err, res) {
+	newUser.save(function (err, res) {
 		if (err) {
 			throw err;
 		}
@@ -189,7 +189,7 @@ var profileSchema = mongoose.Schema({
 //-------------------Profile Model-------------------------
 var Profile = mongoose.model('profiles', profileSchema);
 
-var saveProfile = function(profile, callBack) {
+var saveProfile = function (profile, callBack) {
 	var newProfile = new Profile({
 		userId: profile.userId,
 		universityId: profile.universityId,
@@ -211,13 +211,13 @@ var universitySchema = mongoose.Schema({
 //-------------------University Model----------------------
 var University = mongoose.model('universities', universitySchema);
 
-var saveUniversity = function(uni) {
+var saveUniversity = function (uni) {
 	var newUniversity = new University({
 		universityName: uni.universityName,
 		universityImg: uni.universityImg
 	});
 
-	newUniversity.save(function(err, res) {
+	newUniversity.save(function (err, res) {
 		if (err) {
 			throw err;
 		}
@@ -240,7 +240,7 @@ var notificationSchema = mongoose.Schema({
 //-------------------Notification Model----------------------
 var Notification = mongoose.model('notifications', notificationSchema);
 
-var saveNotification = function(notification) {
+var saveNotification = function (notification) {
 	var newNotification = new Notification({
 		senderId: notification.senderId,
 		recipientId: notification.recipientId,
@@ -249,7 +249,7 @@ var saveNotification = function(notification) {
 		createdAt: notification.createdAt
 	});
 
-	newNotification.save(function(err, noti) {
+	newNotification.save(function (err, noti) {
 		if (err) {
 			throw err;
 		}
@@ -262,98 +262,98 @@ var saveNotification = function(notification) {
 //=======================================================
 
 //----------Find 4 random universities ---------
-var findRandomUnis = function(callback) {
+var findRandomUnis = function (callback) {
 	University.find().random(4, true, callback);
 };
 //--------- Find  recently added Books ---------
-var findRecentlyAddedBooks = function(callback) {
+var findRecentlyAddedBooks = function (callback) {
 	Book.find().sort({ createdAt: 'desc' }).limit(4).exec(callback);
 };
 
 //--------- count Donated Books ---------
-var countDonatedBooks = function(callBack) {
+var countDonatedBooks = function (callBack) {
 	DonatedBook.count({ availability: true }, callBack);
 };
 
 //--------- count Universities ---------
-var countUniversities = function(callBack) {
+var countUniversities = function (callBack) {
 	University.count({}, callBack);
 };
 
 //--------- count Users---------
-var countUsers = function(callBack) {
+var countUsers = function (callBack) {
 	User.count({}, callBack);
 };
 
 //--------- get the books of a university---------
-var getBooksOfUniversity = function(univId, callBack) {
+var getBooksOfUniversity = function (univId, callBack) {
 	Book.find({ universityId: univId }).sort({ createdAt: 'desc' }).exec(callBack);
 };
 
 //---------get bluePrint book from its Id ---------
-var getbluePrintBook = function(bluePrintId, callBack) {
+var getbluePrintBook = function (bluePrintId, callBack) {
 	Book.findOne({ _id: bluePrintId }).exec(callBack);
 };
 
 //--------- get the donated books from the bluePrint Book Id ---------
-var getDonatedBooks = function(bluePrintId, callBack) {
+var getDonatedBooks = function (bluePrintId, callBack) {
 	DonatedBook.find({ bookId: bluePrintId, availability: true }).sort({ createdAt: 'asc' }).exec(callBack);
 };
 
 //-------- get usres names of donated books from profile collection -------
-var getDonatedBooksOwnersName = function(usersId, callBack) {
+var getDonatedBooksOwnersName = function (usersId, callBack) {
 	User.find({ _id: { $in: usersId } }, callBack);
 };
 
 //----- Git user's Profile ---------
-var getUserProfie = function(userId, callBack) {
+var getUserProfie = function (userId, callBack) {
 	Profile.findOne({ userId: userId }).exec(callBack);
 };
 
 // -------- get all Universities ---------
-var getAllUniversities = function(callBack) {
+var getAllUniversities = function (callBack) {
 	University.find({}).exec(callBack);
 };
 
 //-------get donated books as BluePrint books for a specific user -------------
-var getDonatedBooksOfUser = function(userId, callBack) {
-	DonatedBook.find({ userId: userId , availability: true}, callBack);
+var getDonatedBooksOfUser = function (userId, callBack) {
+	DonatedBook.find({ userId: userId, availability: true }, callBack);
 };
 //--------------------------------------
-var getAllBluePrintBooksdonatedByUser = function(bluePrintBooksId, callBack) {
+var getAllBluePrintBooksdonatedByUser = function (bluePrintBooksId, callBack) {
 	Book.find({ _id: { $in: bluePrintBooksId } }, callBack);
 };
 //------------get all books in the system --------------------------
-var getAllBooks = function(callBack) {
+var getAllBooks = function (callBack) {
 	Book.find({}, callBack);
 };
 //------------get the university name --------------------------
-var getUnivName = function(univId, callBack) {
+var getUnivName = function (univId, callBack) {
 	University.findOne({ _id: univId }).select('universityName').exec(callBack);
 };
 //------------get books requested from the user --------------------------
-var getRequestedBooks = function(userId, callBack) {
-	RequestedBook.find({ ownerId: userId , isAccepted: false, isIgnored: false}, callBack);
+var getRequestedBooks = function (userId, callBack) {
+	RequestedBook.find({ ownerId: userId, isAccepted: false, isIgnored: false }, callBack);
 };
 //----------find requesters name / owners name for a requeted book ----------
-var findRequesterName = function(Ids, callBack) {
+var findRequesterName = function (Ids, callBack) {
 	User.find({ _id: { $in: Ids } }).select('userName').exec(callBack);
 };
 //-------------get books the user has requested -------------------------
-var getBooksRequestedByTheUser = function(userId, callBack) {
+var getBooksRequestedByTheUser = function (userId, callBack) {
 	RequestedBook.find({ requesterId: userId }, callBack);
 };
 //-------------updated requested Book to be Accepted-------------------------
-var updateRequestedBookToAccepted = function( requesterId,ownerId, requestedDonatedBookId, callBack) {
+var updateRequestedBookToAccepted = function (requesterId, ownerId, requestedDonatedBookId, callBack) {
 	RequestedBook.findOneAndUpdate(
-		{requesterId: requesterId, donatedBookId: requestedDonatedBookId, ownerId: ownerId },
+		{ requesterId: requesterId, donatedBookId: requestedDonatedBookId, ownerId: ownerId },
 		{ isAccepted: true },
 		{ new: false }
 	).exec(callBack);
 };
 
 //-------------updated requested Book to be IGNORED-------------------------
-var updateRequestedBookToIgnored = function(  requesterId, ownerId, requestedDonatedBookId, callBack) {
+var updateRequestedBookToIgnored = function (requesterId, ownerId, requestedDonatedBookId, callBack) {
 	RequestedBook.findOneAndUpdate(
 		{ requesterId: requesterId, donatedBookId: requestedDonatedBookId, ownerId: ownerId },
 		{ isIgnored: true },
@@ -362,25 +362,25 @@ var updateRequestedBookToIgnored = function(  requesterId, ownerId, requestedDon
 };
 
 //-------------updated DONATED Book to be unavailable-------------------------
-var makeDonatedBookUnavailable = function(donatedBookId, callBack) {
+var makeDonatedBookUnavailable = function (donatedBookId, callBack) {
 	DonatedBook.findByIdAndUpdate({ _id: donatedBookId }, { availability: false }, { new: false }).exec(callBack);
 };
 
 //------------get bluePrint books of requested books -----------
-var getBluePrintBooks = function(bluePrintBooksId, callBack) {
+var getBluePrintBooks = function (bluePrintBooksId, callBack) {
 	Book.find({ _id: { $in: bluePrintBooksId } }).exec(callBack);
 };
 //----------------get Owner Profile ---------------------
-var getOwnerEmailOfRequestedBook = function(ownerId, callBack) {
+var getOwnerEmailOfRequestedBook = function (ownerId, callBack) {
 	User.findOne({ _id: ownerId }).exec(callBack);
 };
 
 //-----------get university name from its Id----------------
-var getUniversityName = function(univId, callBack) {
+var getUniversityName = function (univId, callBack) {
 	University.findOne({ _id: univId }).exec(callBack);
 };
 //--------edit Profile---------------
-var editProfile = function(profileId, userAvatar, callBack) {
+var editProfile = function (profileId, userAvatar, callBack) {
 	Profile.findByIdAndUpdate({ _id: profileId }, { userAvatar: userAvatar }, { new: false }).exec(callBack);
 };
 module.exports.saveBook = saveBook;
