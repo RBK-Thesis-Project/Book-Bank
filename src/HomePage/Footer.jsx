@@ -15,9 +15,10 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center'
   },
   imgAva: {
-    height: 80,
-    width: 80,
-    border: '2px solid white'
+    height: 100,
+    width: 100,
+    border: '2px solid white',
+    borderRadius: '50%'
   },
   grayFotter: {
     background: '#484848',

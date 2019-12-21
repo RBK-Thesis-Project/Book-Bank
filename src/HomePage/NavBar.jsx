@@ -248,14 +248,13 @@ export const NavBar = () => {
 						>
 							{/* Search component */}
 							<SearchAppBar />
+							<ChatBox />
 						</Grid>
 					</Grid>
 				</div>
 			</Toolbar>
 		</AppBar>
-		    <div>
-			<ChatBox />
-		   </div>
+
 		   </div>
 	);
 };

@@ -71,14 +71,17 @@
 		"validator": "^12.1.0"
 	},
 	"scripts": {
-		"start": "react-scripts start",
+		"start": "node server/server.js",
+		"client": "react-scripts start",
 		"build": "react-scripts build",
 		"type": "tsc",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"server1": "nodemon ./src/loging/server.js",
 		"server": "nodemon server/server.js",
-		"start-server": "node server/server.js"
+		"start-server": "node server/server.js",
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
+
 	},
 	"eslintConfig": {
 		"extends": "react-app"

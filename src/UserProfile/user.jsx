@@ -8,27 +8,24 @@ import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import NavBar from '../HomePage/NavBar';
 import Avatar from '@material-ui/core/Avatar';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/postActions';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import RestoreIcon from '@material-ui/icons/Restore';
 import FullWidthTabs from './tabs.jsx';
 import { storage } from '../firebase/firebase';
-
+import Container from '@material-ui/core/Container';
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
-		padding: '80px'
+
 	},
 	root1: {
 		margin: theme.spacing(2)
+	},
+	h6: {
+		marginBottom: 10
 	},
 	paper: {
 		padding: theme.spacing(2),
@@ -36,8 +33,10 @@ const useStyles = makeStyles((theme) => ({
 		maxWidth: 1500
 	},
 	avatar: {
-		width: '100px',
-		height: '100px'
+		width: '150px',
+		height: '150px',
+		margin: 'auto'
+		
 	},
 	formControl: {
 		margin: theme.spacing(1),
@@ -45,6 +44,27 @@ const useStyles = makeStyles((theme) => ({
 	},
 	selectEmpty: {
 		marginTop: theme.spacing(2)
+	},
+	userDiv: {
+		margin: '85px 0px'
+	},
+	imgBro: {
+		color: 'navy',
+		fontSize: 14
+	},
+	addBut: {
+        color: 'white',
+    width: '49%',
+    background: '#76b646',
+    marginTop: 12,
+    borderBottom: '2px solid #438e0a'
+	},
+	brofile: {
+		marginTop: 100,
+		textAlign: 'center',
+		fontSize: 40,
+		color: 'gray',
+		marginBottom: 50
 	}
 }));
 const theme = createMuiTheme({
@@ -52,14 +72,8 @@ const theme = createMuiTheme({
 		subtitle1: {
 			fontSize: 20
 		},
-		body1: {
-			fontSize: 26
-		},
-		h5: {
-			fontSize: 30
-		},
 		subtitle2: {
-			fontSize: 26
+
 		}
 	}
 });
@@ -73,9 +87,8 @@ function UserProfile(props) {
 	var id = decoded.userId;
 	console.log(id);
 	const classes = useStyles();
-
-	const [ profile, setProfile ] = React.useState('');
-	const [ profilePic, setProfilePic ] = React.useState('');
+	const [profile, setProfile] = React.useState('');
+	const [profilePic, setProfilePic] = React.useState('');
 
 	//--------get profile info from server-----------
 	useEffect(() => {
@@ -96,8 +109,8 @@ function UserProfile(props) {
 	}, []);
 
 	//------------------variables for handle media-------------------
-	const [ imageAsFile, setImageAsFile ] = React.useState('');
-	const [ imageAsUrl, setImageAsUrl ] = React.useState('');
+	const [imageAsFile, setImageAsFile] = React.useState('');
+	const [imageAsUrl, setImageAsUrl] = React.useState('');
 
 	//---------------------handle media file-------------------------
 	console.log(imageAsFile);
@@ -160,57 +173,49 @@ function UserProfile(props) {
 	};
 
 	return (
-		<ThemeProvider theme={theme}>
-			<div className={classes.root}>
+		<div>
+			<div>
 				<NavBar />
-				<Paper className={classes.paper}>
-					<Grid container spacing={4}>
-						<Grid item>
-							<br /> <br />
-							<br />
-							<br />
-							<br />
-							<br />
-							<Avatar className={classes.avatar} src={profilePic} alt="Profile picture" />
-							<Button variant="contained" component="label">
-								<input type="file" onChange={handleImageAsFile} style={{ maxWidth: '50' }} />
-							</Button>
-							<Button variant="contained" onClick={handleFireBaseUpload}>
-								Save Photo
-							</Button>
-						</Grid>
-						<Grid item xs={12} sm container>
-							<Grid item xs container direction="column" spacing={9}>
-								<Grid item xs>
-									<Typography gutterBottom variant="h5">
-										USER PROFILE
-									</Typography>
-									<br />
-									<br />
-									<br />
-									<Typography variant="subtitle1">Name:{userName}</Typography>
-									<br />
-									<Typography variant="subtitle1">
-										<b>Email:</b> {email}
-									</Typography>
-									<br />
-									<div>
-										<Link href={`/profile/${id}/AddDonatedBook`}>
-											<Button variant="contained">Add A BOOK</Button>
-										</Link>
-										<br />
-										<br />
-										<br />
-										<br />
-										<FullWidthTabs />
-									</div>
-								</Grid>
-							</Grid>
-						</Grid>
-					</Grid>
-				</Paper>
 			</div>
-		</ThemeProvider>
+			<Container>
+				<Grid
+					container
+					direction="row"
+					justify="center"
+					alignItems="center"
+				>
+					<Grid item xs={6} className={classes.userDiv}>
+						<Avatar className={classes.avatar} src={profilePic} alt="Profile picture" />
+					
+					</Grid>
+					<Grid item xs={6} justify="center"
+					alignItems="center">
+						<Typography variant="subtitle1" className={classes.h6}><b>Name:</b> {userName}</Typography>
+						<Typography variant="subtitle1" className={classes.h6}>
+							<b>Email:</b> {email}
+						</Typography>
+						<div className={classes.h6}>
+						<b className={classes.imgBro}>Change Profile Photo</b>
+						<div style={{    margin: '10px 0'}}>
+						<Button variant="contained" component="label" style={{background: '#bbd5eb', padding: 9}}>
+							<input type="file" onChange={handleImageAsFile} style={{ maxWidth: '50' }} />
+						</Button>
+						
+						<Button variant="contained" onClick={handleFireBaseUpload}>
+							Save
+						</Button>
+						</div>
+						  <div>
+							<Link href={`/profile/${id}/AddDonatedBook`}>
+								<Button variant="contained" className={classes.addBut}>Add A BOOK</Button>
+							</Link>
+							</div>
+						</div>
+					</Grid>
+				</Grid>
+				<FullWidthTabs />
+			</Container>
+		</div>
 	);
 }
 

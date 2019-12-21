@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) =>
 		focusVisible: {},
 		imageButton: {
 			position: 'absolute',
+			borderRadius: 15,
 			left: 0,
 			right: 0,
 			top: 0,
@@ -53,6 +54,7 @@ const useStyles = makeStyles((theme) =>
 		},
 		imageSrc: {
 			position: 'absolute',
+			borderRadius: 15,
 			left: 0,
 			right: 0,
 			top: 0,
@@ -62,6 +64,7 @@ const useStyles = makeStyles((theme) =>
 		},
 		imageBackdrop: {
 			position: 'absolute',
+			borderRadius: 15,
 			left: 0,
 			right: 0,
 			top: 0,
@@ -110,7 +113,10 @@ export const UniversitySlide = (props) => {
 							className={classes.image}
 							focusVisibleClassName={classes.focusVisible}
 							style={{
-								width: '25%'
+								width: '24%',
+									margin: '10px 10px 10px 0',
+									borderRadius: 15,
+									boxShadow: '4px 5px 9px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)'
 							}}
 						>
 							<span
