@@ -22,7 +22,7 @@ app.use(
 //-----------------------------------
 const bookBankDB = require("../database/db");
 require("mongoose-query-random");
-var homepageRouter = require("./routers/HomePage.js");
+var homepageRouter = require("./routers/homePage.js");
 var universityRouter = require("./routers/university.js");
 var profileRouter = require("./routers/profile.js");
 // app.use(express.static(path.join(__dirname, "../build")));
@@ -36,13 +36,7 @@ app.use(homepageRouter);
 app.use("/university", universityRouter);
 app.use("/profile", profileRouter);
 
-if(process.env.NODE_ENV === "production"){
-  app.use(express.static("build"));
-  
-  app.get("/*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "build", "index.html"));
-  });
-}
+
 
 const PORT = process.env.PORT || 8000;
 var server = app.listen(PORT, () =>
