@@ -10,8 +10,8 @@ let socket;
 const useStyles = makeStyles(theme => ({
     root: {
         position: 'absolute',
-        top: 71,
-        right: 50
+        top: 140,
+        right: 0
     },
     chat: {
         color: '#f9e513',
