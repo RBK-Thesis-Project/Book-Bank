@@ -35,7 +35,7 @@ const useStyles = makeStyles({
 		color: '#77b748'
 	},
 	navLinks: {
-		display: 'flex',
+		display:'flex',
 		width: '50%'
 	}
 });
@@ -44,16 +44,16 @@ export default function NavCate() {
 
 	return (
 		<div className={classes.navLinks}>
-			{['university', 'About-Us', 'Contact-Us'].map((text, index) => (
-				<ListItem button key={text}>
-					<Link href={'/' + text} className={classes.link}>
-						<ListItemIcon className={classes.icon}>
-							{/* <ArrowDropDownIcon /> */}
-						</ListItemIcon>
-						<ListItemText primary={text} />
-					</Link>
-				</ListItem>
-			))}
+			{[ 'university', 'About', 'Contact Us' ].map((text, index) => (
+					<ListItem button key={text}>
+						<Link href={'/' + text} className={classes.link}>
+							<ListItemIcon className={classes.icon}>
+								<ArrowDropDownIcon />
+							</ListItemIcon>
+							<ListItemText primary={text} />
+						</Link>
+					</ListItem>
+				))}
 		</div>
 	);
 }
