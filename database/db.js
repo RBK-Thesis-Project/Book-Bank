@@ -378,6 +378,10 @@ var getUniversityName = function(univId, callBack) {
 var editProfile = function(profileId, userAvatar, callBack) {
 	Profile.findByIdAndUpdate({ _id: profileId }, { userAvatar: userAvatar }, { new: false }).exec(callBack);
 };
+//---------find user profile----------
+var findProfile = function(userId, callBack) {
+	Profile.findOne({ userId: userId }).exec(callBack);
+};
 module.exports.saveBook = saveBook;
 module.exports.saveDonatedBook = saveDonatedBook;
 module.exports.saveUser = saveUser;
@@ -411,3 +415,4 @@ module.exports.getBluePrintBooks = getBluePrintBooks;
 module.exports.getOwnerEmailOfRequestedBook = getOwnerEmailOfRequestedBook;
 module.exports.getUniversityName = getUniversityName;
 module.exports.editProfile = editProfile;
+module.exports.findProfile = findProfile;
